@@ -71,7 +71,7 @@ OAuth.extractQueryParams = function extractQueryParams(uri) {
 	}
 
 	return queryPairs;
-}
+};
 
 /**
  * Constructs a valid Authorization header as per
@@ -85,12 +85,12 @@ OAuth.getAuthorizationString = function getAuthorizationString(oauthParams) {
 	for (entry of oauthParams) {
 		const entryKey = entry[0];
 		const entryVal = entry[1];
-		header = `${header}${entryKey}="${entryVal}",`
+		header = `${header}${entryKey}="${entryVal}",`;
 	}
 	// Remove trailing ,
 	header = header.slice(0, header.length - 1);
 	return header;
-}
+};
 
 /**
  * Normalizes the URL as per
@@ -108,7 +108,7 @@ OAuth.getBaseUriString = function getBaseUriString(uri) {
 
 	// Remove query and fragment
 	return `${protocol}//${hostname}${pathname}`;
-}
+};
 
 /**
  * Generates a hash based on request payload as per
@@ -121,7 +121,7 @@ OAuth.getBodyHash = function getBodyHash(payload) {
 	const bodyHash = crypto.createHash(`sha${SHA_BITS}`);
 	bodyHash.update(payload, "utf8");
 	return bodyHash.digest("base64");
-}
+};
 
 /**
  * Generates a random string for replay protection as per
@@ -140,7 +140,7 @@ OAuth.getNonce = function getNonce() {
 		acc.push(VALID_CHARS[bytes[i] % VALID_CHARS.length]);
 		return acc;
 	}, []).join("");
-}
+};
 
 /**
  * @param {String} consumerKey Consumer key set up in a Mastercard Developer Portal project
@@ -156,7 +156,7 @@ OAuth.getOAuthParams = function getOAuthParams(consumerKey, payload) {
 	oauthParams.set("oauth_timestamp", OAuth.getTimestamp());
 	oauthParams.set("oauth_version", "1.0");
 	return oauthParams;
-}
+};
 
 /**
  * Generate a valid signature base string as per
@@ -177,7 +177,7 @@ OAuth.getSignatureBaseString = function getSignatureBaseString(httpMethod, baseU
 		`${encodeURIComponent(paramString)}`;
 
 	return sbs.replace(/!/, "%21");
-}
+};
 
 /**
  * Returns UNIX Timestamp as required per
@@ -187,7 +187,7 @@ OAuth.getSignatureBaseString = function getSignatureBaseString(httpMethod, baseU
  */
 OAuth.getTimestamp = function getTimestamp() {
 	return Math.floor(Date.now() / 1000);
-}
+};
 
 /**
  * Signs the signature base string using an RSA private key. The methodology is described at
@@ -210,7 +210,7 @@ OAuth.signSignatureBaseString = function signSignatureBaseString(sbs, signingKey
 	}
 
 	return signature;
-}
+};
 
 /**
  * Lexicographically sort all parameters and concatenate them into a string as per
@@ -248,7 +248,7 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 		}
 
 		for (value of entryValue) {
-			oauthParams = `${oauthParams}${entryKey}=${value}&`
+			oauthParams = `${oauthParams}${entryKey}=${value}&`;
 		}
 	}
 
@@ -259,4 +259,4 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 	}
 
 	return oauthParams;
-}
+};
