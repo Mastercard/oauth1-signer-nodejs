@@ -1,0 +1,14 @@
+{
+  "name": "oauth1-signer-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/OAuth.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^5.1.1"
+  }
+}
