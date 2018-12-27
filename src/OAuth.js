@@ -108,7 +108,7 @@ OAuth.getBaseUriString = function getBaseUriString(uri) {
 
 	// Remove query and fragment
 	var baseUri=`${protocol}//${hostname}`;
-	if(uriAsUrl.port !== undefined && uriAsUrl.port !== null && uriAsUrl.port!==443 && uriAsUrl!==80) {
+	if(uriAsUrl.port !== undefined && uriAsUrl.port !== null && uriAsUrl.port!==443 && uriAsUrl.port!==80) {
 		baseUri += ':' + uriAsUrl.port;
 	}
 	baseUri += `${pathname}`;
