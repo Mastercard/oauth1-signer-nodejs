@@ -31,13 +31,13 @@ The two key pieces of information you will need are:
 The method that does all the heavy lifting is `OAuth.getAuthorizationHeader`. You can call into it directly and as long as you provide the correct parameters, it will return a string that you can add into your request's `Authorization` header.
 
 ```javascript
-	const consumerKey = "<insert consumer key from developer portal>";
-	const signingKey = "<initialize private key matching the consumer key>";
-	const uri = "https://sandbox.api.mastercard.com/service";
-	const method = "GET";
-	const payload = "Hello world!";
+const consumerKey = "<insert consumer key from developer portal>";
+const signingKey = "<initialize private key matching the consumer key>";
+const uri = "https://sandbox.api.mastercard.com/service";
+const method = "GET";
+const payload = "Hello world!";
 
-	const authHeader = OAuth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey);
+const authHeader = OAuth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey);
 ```
 
 ## Initializing the private key
