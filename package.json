@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git@github.com:Mastercard/oauth1-signer-nodejs.git"
   },
-  "author": "Mastercard Worldwide <APISupport@mastercard.com> (https://developer.mastercard.com)",
+  "author": "MasterCard Worldwide <APISupport@mastercard.com> (https://developer.mastercard.com)",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.19.1",
