@@ -1,5 +1,5 @@
 {
-  "name": "oauth1-signer-nodejs",
+  "name": "mastercard-oauth1-signer",
   "version": "1.0.0",
   "description": "Zero dependency library for generating a Mastercard API compliant OAuth signature.",
   "main": "src/OAuth.js",
@@ -7,10 +7,10 @@
     "test": "mocha"
   },
   "repository": {
-	"type": "git",
-	"url": "git@github.com:Mastercard/oauth1-signer-nodejs.git"
+    "type": "git",
+    "url": "git@github.com:Mastercard/oauth1-signer-nodejs.git"
   },
-  "author": "MasterCard Worldwide <APISupport@mastercard.com> (https://developer.mastercard.com)",
+  "author": "Mastercard Worldwide <APISupport@mastercard.com> (https://developer.mastercard.com)",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.19.1",
