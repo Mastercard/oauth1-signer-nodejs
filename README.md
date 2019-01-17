@@ -77,7 +77,7 @@ The method that does all the heavy lifting is `OAuth.getAuthorizationHeader`. Yo
 const consumerKey = "<insert consumer key>";
 const signingKey = "<initialize private key matching the consumer key>";
 const uri = "https://sandbox.api.mastercard.com/service";
-const method = "GET";
+const method = "POST";
 const payload = "Hello world!";
 
 const authHeader = OAuth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey);
