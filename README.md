@@ -40,17 +40,13 @@ npm i mastercard-oauth1-signer
 ```
 
 ### Loading the Signing Key <a name="loading-the-signing-key"></a>
-The following script shows how to initialize the private key using `node-forge`.
+
+The following code shows how to load the private key using `node-forge`:
 
 ```javascript
 const forge = require("node-forge");
 const fs = require("fs");
-
-const keyStorePath = "<insert PKCS#12 key file path>";
-const keyAlias = "<insert key alias>";
-const keyPassword = "<insert key password>";
-const p12Content = fs.readFileSync(keyStorePath, 'binary');
-const _getPrivateKey = function (p12Content, alias, password) {
+const _getPrivateKey = function(p12Content, alias, password) {
     
     // Get asn1 from DER    
     var p12Asn1 = forge.asn1.fromDer(p12Content, false); 
@@ -68,17 +64,20 @@ const _getPrivateKey = function (p12Content, alias, password) {
     var pem = forge.pki.privateKeyToPem(keyObj.key); 
     return pem;
 };
+const keyStorePath = "<insert PKCS#12 key file path>";
+var p12Content = fs.readFileSync(keyStorePath, 'binary');
+var signingKey = _getPrivateKey(p12Content, "<insert key alias>", "<insert key password>");
 ```
 
 ### Creating the OAuth Authorization Header <a name="creating-the-oauth-authorization-header"></a>
-The method that does all the heavy lifting is `OAuth.getAuthorizationHeader`. You can call into it directly and as long as you provide the correct parameters, it will return a string that you can add into your request's `Authorization` header.
+The method that does all the heavy lifting is `getAuthorizationHeader`. You can call into it directly and as long as you provide the correct parameters, it will return a string that you can add into your request's `Authorization` header.
 
 ```javascript
 const consumerKey = "<insert consumer key>";
-const signingKey = "<initialize private key matching the consumer key>";
 const uri = "https://sandbox.api.mastercard.com/service";
 const method = "POST";
 const payload = "Hello world!";
 
-const authHeader = OAuth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey);
+const oauth = require('mastercard-oauth1-signer');
+const authHeader = oauth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey);
 ```
