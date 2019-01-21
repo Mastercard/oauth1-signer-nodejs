@@ -46,27 +46,14 @@ The following code shows how to load the private key using `node-forge`:
 ```javascript
 const forge = require("node-forge");
 const fs = require("fs");
-const _getPrivateKey = function(p12Content, alias, password) {
-    
-    // Get asn1 from DER    
-    var p12Asn1 = forge.asn1.fromDer(p12Content, false); 
-    
-    // Get p12 using the password
-    var p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1, false, password);
-
-    // Get Key from p12
-    var keyObj = p12.getBags({
-        friendlyName: alias,
-        bagType: forge.pki.oids.pkcs8ShroudedKeyBag
-    }).friendlyName[0];
-
-    // Get private key as PEM
-    var pem = forge.pki.privateKeyToPem(keyObj.key); 
-    return pem;
-};
-const keyStorePath = "<insert PKCS#12 key file path>";
-var p12Content = fs.readFileSync(keyStorePath, 'binary');
-var signingKey = _getPrivateKey(p12Content, "<insert key alias>", "<insert key password>");
+const p12Content = fs.readFileSync("<insert PKCS#12 key file path>", 'binary');
+const p12Asn1 = forge.asn1.fromDer(p12Content, false);
+const p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1, false, "<insert key password>");
+const keyObj = p12.getBags({
+    friendlyName: "<insert key alias>",
+    bagType: forge.pki.oids.pkcs8ShroudedKeyBag
+}).friendlyName[0];
+const signingKey = forge.pki.privateKeyToPem(keyObj.key);
 ```
 
 ### Creating the OAuth Authorization Header <a name="creating-the-oauth-authorization-header"></a>
