@@ -247,28 +247,29 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 		}
 	}
 
-	let oauthParams = "";
+	let consolidatedParamsAsc = new Map([...consolidatedParams.entries()].sort());
+	let allParams = "";
 
 	// Add all parameters to the parameter string for signing
-	for(entry of consolidatedParams) {
+	for (entry of consolidatedParamsAsc) {
 		const entryKey = entry[0];
-		let entryValue = entry[1];
+		let entryValues = entry[1];
 
 		// Keys with same name are sorted by their values
-		if (entryValue.size > 1) {
-			entryValue = new Set(Array.from(entryValue).sort());
+		if (entryValues.size > 1) {
+			entryValues = new Set(Array.from(entryValues).sort());
 		}
 
-		for (value of entryValue) {
-			oauthParams = `${oauthParams}${entryKey}=${value}&`;
+		for (entryValue of entryValues) {
+			allParams = `${allParams}${entryKey}=${entryValue}&`;
 		}
 	}
 
 	// Remove trailing ampersand
-	const stringLength = oauthParams.length - 1;
-	if (oauthParams.endsWith("&")) {
-		oauthParams = oauthParams.slice(0, stringLength);
+	const stringLength = allParams.length - 1;
+	if (allParams.endsWith("&")) {
+		allParams = allParams.slice(0, stringLength);
 	}
 
-	return oauthParams;
+	return allParams;
 };
