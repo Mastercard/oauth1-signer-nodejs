@@ -35,7 +35,7 @@ As part of this set up, you'll receive credentials for your app:
 
 ### Adding the Library to Your Project <a name="adding-the-library-to-your-project"></a>
 
-```
+```shell
 npm i mastercard-oauth1-signer
 ```
 
