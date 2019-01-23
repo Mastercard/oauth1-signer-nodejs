@@ -14,6 +14,7 @@
   * [Adding the Library to Your Project](#adding-the-library-to-your-project)
   * [Loading the Signing Key](#loading-the-signing-key)  
   * [Creating the OAuth Authorization Header](#creating-the-oauth-authorization-header)
+  * [Integrating with OpenAPI Generator API Client Libraries](#integrating-with-openapi-generator-api-client-libraries)
   
 ## Overview <a name="overview"></a>
 Zero dependency library for generating a Mastercard API compliant OAuth signature.
@@ -67,4 +68,48 @@ const payload = "Hello world!";
 
 const oauth = require('mastercard-oauth1-signer');
 const authHeader = oauth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey);
+```
+
+### Integrating with OpenAPI Generator API Client Libraries <a name="integrating-with-openapi-generator-api-client-libraries"></a>
+
+[OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) generates API client libraries from [OpenAPI Specs](https://github.com/OAI/OpenAPI-Specification). 
+It provides generators and library templates for supporting multiple languages and frameworks.
+
+Generators currently supported:
++ [javascript](#javascript)
+
+See also: [CONFIG OPTIONS for javascript](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/javascript.md).
+
+#### javascript <a name="javascript"></a>
+##### OpenAPI Generator
+
+```shell
+java -jar openapi-generator-cli.jar generate -i openapi-spec.yaml -g javascript -o out
+```
+
+##### Overriding `applyAuthToRequest`
+
+The Authorization header can be added before sending the requests by overriding the `applyAuthToRequest` function: 
+
+```javascript
+const service = require('../service/index.js');
+const apiClient = require('../service/ApiClient.js');
+const client = apiClient.instance;
+client.basePath = "https://sandbox.api.mastercard.com";
+client.applyAuthToRequest = function(request) {
+    const _end = request._end;
+    request._end = function() {
+        const authHeader = oauth.getAuthorizationHeader(request.url, request.method, request._data, consumerKey, signingKey);
+        request.req.setHeader('Authorization', authHeader);
+        _end.call(request);
+    }
+    return request;
+};
+const serviceApi = new service.ServiceApi();
+const opts = {}
+const callback = function(error, data, response) {
+    // ...
+};
+serviceApi.call(opts, callback);
+// ...
 ```
