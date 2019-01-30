@@ -78,14 +78,15 @@ It provides generators and library templates for supporting multiple languages a
 Generators currently supported:
 + [javascript](#javascript)
 
-See also: [CONFIG OPTIONS for javascript](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/javascript.md).
-
 #### javascript <a name="javascript"></a>
+
 ##### OpenAPI Generator
 
+Client libraries can be generated using the following command:
 ```shell
 java -jar openapi-generator-cli.jar generate -i openapi-spec.yaml -g javascript -o out
 ```
+See also: [CONFIG OPTIONS for javascript](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/javascript.md).
 
 ##### Overriding `applyAuthToRequest`
 
