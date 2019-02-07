@@ -86,7 +86,9 @@ Client libraries can be generated using the following command:
 ```shell
 java -jar openapi-generator-cli.jar generate -i openapi-spec.yaml -g javascript -o out
 ```
-See also: [CONFIG OPTIONS for javascript](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/javascript.md).
+See also: 
+* [OpenAPI Generator (executable)](https://mvnrepository.com/artifact/org.openapitools/openapi-generator-cli)
+* [CONFIG OPTIONS for javascript](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/javascript.md)
 
 ##### Overriding `applyAuthToRequest`
 
