@@ -18,9 +18,5 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  },
-  "engines": {
-	  "node": ">= 10.15.1",
-	  "npm": ">= 6.4.1"
   }
 }
