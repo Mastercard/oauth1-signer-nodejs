@@ -13,9 +13,9 @@ matrix:
   - node_js: 11
   - node_js: node        # latest stable release
   - node_js: "lts/*"     # latest LTS release
-  env: 
-    - WITH_SONAR_ANALYSIS=true
-    - SONAR_SCANNER_VERSION=3.3.0.1492
+    env: 
+      - WITH_SONAR_ANALYSIS=true
+      - SONAR_SCANNER_VERSION=3.3.0.1492
 install:
   - npm install
   - |
