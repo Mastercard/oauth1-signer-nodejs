@@ -1,11 +1,33 @@
 language: node_js
-node_js:
-  - 6.12.3
-  - 6
-  - 7
-  - 8
-  - 9
-  - 10
-  - 11
-  - node        # latest stable release
-  - "lts/*"     # latest LTS release
+git:
+  depth: false  # "Shallow clone detected during the analysis"
+matrix:
+  fast_finish: true
+  include:  
+  - node_js: 6.12.3
+  - node_js: 6
+  - node_js: 7
+  - node_js: 8
+  - node_js: 9
+  - node_js: 10
+  - node_js: 11
+  - node_js: node        # latest stable release
+  - node_js: "lts/*"     # latest LTS release
+  env: 
+    - WITH_SONAR_ANALYSIS=true
+    - SONAR_SCANNER_VERSION=3.3.0.1492
+install:
+  - |
+    test $WITH_SONAR_ANALYSIS \
+       && wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION.zip \
+       && unzip sonar-scanner-cli-$SONAR_SCANNER_VERSION.zip || echo 'Skipping Sonar Scanner installation'
+after_success:
+  - |
+    test $WITH_SONAR_ANALYSIS && sonar-scanner-$SONAR_SCANNER_VERSION/bin/sonar-scanner \
+      -Dsonar.projectName=$SONAR_PROJECT_NAME \
+      -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+      -Dsonar.organization=$SONAR_ORGANIZATION_KEY \
+      -Dsonar.sources=./src \
+      -Dsonar.tests=./test \
+      -Dsonar.host.url=$SONAR_URL \
+      -Dsonar.login=$SONAR_TOKEN || echo 'Skipping Sonar Scanner execution'
