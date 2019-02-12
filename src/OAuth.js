@@ -82,7 +82,7 @@ OAuth.extractQueryParams = function extractQueryParams(uri) {
  */
 OAuth.getAuthorizationString = function getAuthorizationString(oauthParams) {
 	let header = "OAuth ";
-	for (entry of oauthParams) {
+	for (const entry of oauthParams) {
 		const entryKey = entry[0];
 		const entryVal = entry[1];
 		header = `${header}${entryKey}="${entryVal}",`;
@@ -260,7 +260,7 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 			entryValues = new Set(Array.from(entryValues).sort());
 		}
 
-		for (entryValue of entryValues) {
+		for (const entryValue of entryValues) {
 			allParams = `${allParams}${entryKey}=${entryValue}&`;
 		}
 	}
