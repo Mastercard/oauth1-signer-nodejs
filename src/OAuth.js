@@ -236,7 +236,7 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 	const consolidatedParams = new Map(queryParamsMap);
 
 	// Add OAuth params to consolidated params map
-	for (entry of oauthParamsMap) {
+	for (const entry of oauthParamsMap) {
 		const entryKey = entry[0];
 		const entryValue = entry[1];
 
@@ -251,7 +251,7 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 	let allParams = "";
 
 	// Add all parameters to the parameter string for signing
-	for (entry of consolidatedParamsAsc) {
+	for (const entry of consolidatedParamsAsc) {
 		const entryKey = entry[0];
 		let entryValues = entry[1];
 
