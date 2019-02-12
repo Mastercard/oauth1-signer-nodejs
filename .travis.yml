@@ -33,6 +33,7 @@ after_success:
       -Dsonar.organization=$SONAR_ORGANIZATION_KEY \
       -Dsonar.sources=./src \
       -Dsonar.tests=./test \
+      -Dsonar.testExecutionReportPaths=test-results.xml \
       -Dsonar.javascript.lcov.reportPaths=.nyc_output/coverage.lcov \
       -Dsonar.host.url=$SONAR_URL \
       -Dsonar.login=$SONAR_TOKEN || echo 'Skipping Sonar Scanner execution'
