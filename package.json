@@ -4,8 +4,8 @@
   "description": "Zero dependency library for generating a Mastercard API compliant OAuth signature.",
   "main": "src/OAuth.js",
   "scripts": {
-    "test": "mocha && nyc mocha --reporter mocha-junit-reporter",
-    "coverage": "nyc report --reporter=text-lcov > .nyc_output/coverage.lcov"
+    "test": "mocha && mocha --reporter mocha-sonar-generic-test-coverage > test-results.xml",
+    "coverage": "nyc mocha && nyc report --reporter=text-lcov > .nyc_output/coverage.lcov"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   "devDependencies": {
     "eslint": "^5.13.0",
     "mocha": "^5.2.0",
-    "mocha-junit-reporter": "^1.18.0",
+    "mocha-sonar-generic-test-coverage": "0.0.6",
     "nyc": "^13.2.0"
   },
   "publishConfig": {
