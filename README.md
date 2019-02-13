@@ -7,7 +7,7 @@
 
 ## Table of Contents
 - [Overview](#overview)
-  * [Compatibility](#compatibility)
+  * [Recommended Node Versions](#recommended-node-versions)
   * [References](#references)
 - [Usage](#usage)
   * [Prerequisites](#prerequisites)
@@ -19,8 +19,12 @@
 ## Overview <a name="overview"></a>
 Zero dependency library for generating a Mastercard API compliant OAuth signature.
 
-### Compatibility <a name="compatibility"></a>
-Node 6.12.3+
+### Recommended Node Versions <a name="recommended-node-versions"></a>
+It is recommended that you use one of the LTS Node.js releases, or one of the more general recent releases.
+There shouldn't be any Node compatibility issues with this tool, but it's a good idea to keep your
+Node versions up-to-date.  A Node version manager such as [nvm](https://github.com/creationix/nvm)
+(Mac and Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows) is a good way to stay on
+top of this.
 
 ### References <a name="references"></a>
 * [OAuth 1.0a specification](https://tools.ietf.org/html/rfc5849)
