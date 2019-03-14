@@ -14,12 +14,13 @@ matrix:
   - node_js: node        # latest stable release
   - node_js: "lts/*"     # latest LTS release
     env: 
-      - WITH_SONAR_ANALYSIS=true
+      # Do not run analysis on PR (secure env variables like SONAR_TOKEN are not always available)
+      - WITH_SONAR_ANALYSIS=$([ "$TRAVIS_PULL_REQUEST" = "false" ] && echo true || echo false)
       - SONAR_SCANNER_VERSION=3.3.0.1492
 install:
   - npm install
   - |
-    test $WITH_SONAR_ANALYSIS \
+    test "$WITH_SONAR_ANALYSIS" = "true" \
        && wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION.zip \
        && unzip sonar-scanner-cli-$SONAR_SCANNER_VERSION.zip || echo 'Skipping Sonar Scanner installation'
 script:
@@ -27,7 +28,7 @@ script:
   - npm run coverage
 after_success:
   - |
-    test $WITH_SONAR_ANALYSIS && sonar-scanner-$SONAR_SCANNER_VERSION/bin/sonar-scanner \
+    test "$WITH_SONAR_ANALYSIS" = "true" && sonar-scanner-$SONAR_SCANNER_VERSION/bin/sonar-scanner \
       -Dsonar.projectName=$SONAR_PROJECT_NAME \
       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
       -Dsonar.organization=$SONAR_ORGANIZATION_KEY \
