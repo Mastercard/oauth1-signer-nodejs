@@ -184,9 +184,9 @@ OAuth.getSignatureBaseString = function getSignatureBaseString(httpMethod, baseU
 		// Uppercase HTTP method
 		`${httpMethod.toUpperCase()}&` +
 		// Base URI
-		`${encodeURIComponent(baseUri)}&` +
+		`${OAuth.getEncodedString(baseUri)}&` +
 		// OAuth parameter string
-		`${encodeURIComponent(paramString)}`;
+		`${OAuth.getEncodedString(paramString)}`;
 
 	return sbs.replace(/!/, "%21");
 };
@@ -272,4 +272,19 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 	}
 
 	return allParams;
+};
+
+/**
+ * Get encoded Uri from passed parameter
+ * Also checks whether Uri is already encoded
+ * Decodes Url first as URI builders encode some parts of the passed parameters
+ *
+ * @param {String} stringParam Param that's checked for encoding and returned accordingly
+ */
+OAuth.getEncodedString = function getEncodedString(stringParam) {
+	if(decodeURIComponent(stringParam) === stringParam) {
+		return encodeURIComponent(stringParam);
+	} else {
+		return encodeURIComponent(decodeURIComponent(stringParam));
+	}
 };
