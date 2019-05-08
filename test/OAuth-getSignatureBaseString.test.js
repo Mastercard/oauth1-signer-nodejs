@@ -12,7 +12,7 @@ describe("OAuth Signer", function() {
 			const paramString = "Format=JSON&Format=XML&MerchantId=GOOGLE%20LTD%20ADWORDS%20CC%40GOOGLE.COM&Type=ExactMatch&oauth_consumer_key=aaa!aaa&oauth_nonce=uTeLPs6K&oauth_signature_method=RSA-SHA256&oauth_timestamp=1524771555&oauth_version=1.0";
 			const sbs = getSignatureBaseString(httpMethod, baseUri, paramString);
 
-			assert.deepEqual(sbs, "GET&https%3A%2F%2Fsandbox.api.mastercard.com%2Fmerchantid%2Fv1%2Fmerchantid&Format%3DJSON%26Format%3DXML%26MerchantId%3DGOOGLE%20LTD%20ADWORDS%20CC%40GOOGLE.COM%26Type%3DExactMatch%26oauth_consumer_key%3Daaa%21aaa%26oauth_nonce%3DuTeLPs6K%26oauth_signature_method%3DRSA-SHA256%26oauth_timestamp%3D1524771555%26oauth_version%3D1.0");
+			assert.deepEqual(sbs, "GET&https%3A%2F%2Fsandbox.api.mastercard.com%2Fmerchantid%2Fv1%2Fmerchantid&Format%3DJSON%26Format%3DXML%26MerchantId%3DGOOGLE%2520LTD%2520ADWORDS%2520CC%2540GOOGLE.COM%26Type%3DExactMatch%26oauth_consumer_key%3Daaa%21aaa%26oauth_nonce%3DuTeLPs6K%26oauth_signature_method%3DRSA-SHA256%26oauth_timestamp%3D1524771555%26oauth_version%3D1.0");
 		});
 
 		it("Should create expected base string when query params are encoded", function() {
@@ -21,7 +21,7 @@ describe("OAuth Signer", function() {
 			const paramString = toOauthParamString(encodedParams, new Map());
 			const baseString = getSignatureBaseString("GET", "https://example.com", paramString);
 
-			assert.deepEqual("GET&https%3A%2F%2Fexample.com&param%3Dtoken1%3Atoken2", baseString);
+			assert.deepEqual("GET&https%3A%2F%2Fexample.com&param%3Dtoken1%253Atoken2", baseString);
 		});
 
 		it("Should create expected base string when query params are not encoded", function() {
