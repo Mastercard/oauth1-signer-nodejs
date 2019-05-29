@@ -161,7 +161,7 @@ OAuth.getNonce = function getNonce() {
  */
 OAuth.getOAuthParams = function getOAuthParams(consumerKey, payload) {
 	const oauthParams = new Map();
-	if (!payload) payload = "";
+	if (!payload) payload = EMPTY_STRING;
 	oauthParams.set("oauth_body_hash", OAuth.getBodyHash(payload));
 	oauthParams.set("oauth_consumer_key", consumerKey);
 	oauthParams.set("oauth_nonce", OAuth.getNonce());
