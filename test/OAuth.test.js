@@ -14,7 +14,7 @@ describe("OAuth Signer", function() {
 
 		it("Creates a valid OAuth1.0a signature with a body hash when payload is present", function() {
 			const header = OAuth.getAuthorizationHeader(uri, method, null, consumerKey, signingKey);
-			assert.equal(header, `OAuth oauth_consumer_key="aaa!aaa",oauth_nonce="uTeLPs6K",oauth_signature_method="RSA-SHA256",oauth_timestamp="1524771555",oauth_version="1.0",oauth_signature="XXX"`);
+			assert.equal(header, `OAuth oauth_body_hash="47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",oauth_consumer_key="aaa!aaa",oauth_nonce="uTeLPs6K",oauth_signature_method="RSA-SHA256",oauth_timestamp="1524771555",oauth_version="1.0",oauth_signature="XXX"`);
 		});
 	});
 });
