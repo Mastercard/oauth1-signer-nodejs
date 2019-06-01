@@ -14,10 +14,10 @@
   "author": "Mastercard",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^5.13.0",
-    "mocha": "^5.2.0",
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.0",
     "mocha-sonar-generic-test-coverage": "0.0.6",
-    "nyc": "^13.2.0"
+    "nyc": "^14.1.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
