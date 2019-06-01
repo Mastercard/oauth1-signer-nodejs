@@ -12,7 +12,7 @@ const authorizationString = getAuthorizationString(oauthParams);
 describe("OAuth Signer", function() {
 	describe("#getAuthorizationString()", function() {
 		it("Creates a correctly formatted header", function() {
-			assert.equal(authorizationString, `OAuth oauth_consumer_key="aaa!aaa",oauth_nonce="uTeLPs6K",oauth_signature_method="RSA-SHA256",oauth_timestamp="1524771555",oauth_version="1.0"`);
+			assert.equal(authorizationString, `OAuth oauth_body_hash="47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",oauth_consumer_key="aaa!aaa",oauth_nonce="uTeLPs6K",oauth_signature_method="RSA-SHA256",oauth_timestamp="1524771555",oauth_version="1.0"`);
 		});
 	});
 });

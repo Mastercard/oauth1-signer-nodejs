@@ -4,7 +4,7 @@ const getOAuthParams = require("../src/OAuth").getOAuthParams;
 
 describe("OAuth Signer", function() {
 	describe("#getOAuthParams()", function() {
-		
+
 		const consumerKey = "aaa!aaa";
 		const myPayload = `{ my: "payload" }`;
 
@@ -12,6 +12,7 @@ describe("OAuth Signer", function() {
 			const oauthParams = getOAuthParams(consumerKey);
 			const mapKeysArray = Array.from(oauthParams.keys());
 			const paramsArr = [
+				"oauth_body_hash",
 				"oauth_consumer_key",
 				"oauth_nonce",
 				"oauth_signature_method",
