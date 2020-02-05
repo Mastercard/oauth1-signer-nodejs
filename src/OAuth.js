@@ -181,13 +181,18 @@ OAuth.getOAuthParams = function getOAuthParams(consumerKey, payload) {
  * @return {String} A correctly constructed and escaped signature base string
  */
 OAuth.getSignatureBaseString = function getSignatureBaseString(httpMethod, baseUri, paramString) {
+
+	//encodeURIComponent doesnt encode * so doing it manually
+	let encodeParamsString = encodeURIComponent(paramString);
+	encodeParamsString = encodeParamsString.replace('*', '%2A')
+
 	const sbs =
 		// Uppercase HTTP method
 		`${httpMethod.toUpperCase()}&` +
 		// Base URI
 		`${encodeURIComponent(baseUri)}&` +
 		// OAuth parameter string
-		`${encodeURIComponent(paramString)}`;
+		encodeParamsString;
 
 	return sbs.replace(/!/, "%21");
 };
