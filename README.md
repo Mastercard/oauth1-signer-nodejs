@@ -2,6 +2,7 @@
 
 [![](https://travis-ci.org/Mastercard/oauth1-signer-nodejs.svg?branch=master)](https://travis-ci.org/Mastercard/oauth1-signer-nodejs)
 [![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_oauth1-signer-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mastercard_oauth1-signer-nodejs) 
+[![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_oauth1-signer-nodejs&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Mastercard_oauth1-signer-nodejs)
 [![](https://img.shields.io/npm/v/mastercard-oauth1-signer.svg)](https://www.npmjs.com/package/mastercard-oauth1-signer)
 [![](https://img.shields.io/badge/license-MIT-yellow.svg)](https://github.com/Mastercard/oauth1-signer-nodejs/blob/master/LICENSE)
 
