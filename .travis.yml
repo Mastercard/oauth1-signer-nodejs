@@ -3,9 +3,7 @@ git:
   depth: false  # "Shallow clone detected during the analysis"
 matrix:
   fast_finish: true
-  include:  
-  - node_js: 9.0.0
-  - node_js: 9
+  include:
   - node_js: 10
   - node_js: 11
   - node_js: 12
