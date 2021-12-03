@@ -218,7 +218,7 @@ OAuth.getTimestamp = function getTimestamp() {
  */
 OAuth.signSignatureBaseString = function signSignatureBaseString(sbs, signingKey) {
 	let signer = crypto.createSign("RSA-SHA256");
-	signer = signer.update(new Buffer(sbs));
+	signer = signer.update(Buffer.from(sbs));
 
 	let signature;
 	try {
