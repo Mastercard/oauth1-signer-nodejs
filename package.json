@@ -1,6 +1,6 @@
 {
   "name": "mastercard-oauth1-signer",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "Zero dependency library for generating a Mastercard API compliant OAuth signature.",
   "main": "src/OAuth.js",
   "scripts": {
