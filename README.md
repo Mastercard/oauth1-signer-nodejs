@@ -5,7 +5,7 @@
 [![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_oauth1-signer-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mastercard_oauth1-signer-nodejs) 
 [![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_oauth1-signer-nodejs&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Mastercard_oauth1-signer-nodejs)
 [![](https://github.com/Mastercard/oauth1-signer-nodejs/workflows/broken%20links%3F/badge.svg)](https://github.com/Mastercard/oauth1-signer-nodejs/actions?query=workflow%3A%22broken+links%3F%22)
-[![](https://img.shields.io/npm/v/mastercard-oauth1-signer.svg)](https://www.npmjs.com/package/mastercard-oauth1-signer)
+[![](http://img.shields.io/npm/v/mastercard-oauth1-signer.svg)](http://www.npmjs.com/package/mastercard-oauth1-signer)
 [![](https://img.shields.io/badge/license-MIT-yellow.svg)](https://github.com/Mastercard/oauth1-signer-nodejs/blob/master/LICENSE)
 
 ## Table of Contents
