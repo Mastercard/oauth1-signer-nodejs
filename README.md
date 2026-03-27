@@ -15,6 +15,7 @@
 ## Table of Contents
 - [Overview](#overview)
   * [Compatibility](#compatibility)
+  * [Supported Signature Methods](#supported-signature-methods)
   * [References](#references)
   * [Versioning and Deprecation Policy](#versioning)
 - [Usage](#usage)
@@ -28,12 +29,23 @@
 Zero dependency library for generating a Mastercard API compliant OAuth signature.
 
 ### Compatibility <a name="compatibility"></a>
-Node 6.12.3+
+Node 6.12.3+ in general.
+Node 8.0.0+ for RSA-PSS signing.
 
 There shouldn't be any Node compatibility issues with this package, but it's a good idea to keep your Node versions up-to-date. 
 It is recommended that you use one of the LTS Node.js releases, or one of the [more general recent releases](https://github.com/nodejs/Release). 
 A Node version manager such as [nvm](https://github.com/creationix/nvm) (Mac and Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows) 
 is a good way to stay on top of this.
+
+### Supported Signature Methods <a name="supported-signature-methods"></a>
+Two cryptographic methods are available for generating OAuth signatures, selected via the `SignatureMethod` constants:
+
+| Constant | Algorithm | Specification |
+|---|---|---|
+| `SignatureMethod.RSA_SHA256` (default) | RSASSA-PKCS1-v1_5 with SHA-256 | [RFC 8017 §8.2](https://tools.ietf.org/html/rfc8017#section-8.2) |
+| `SignatureMethod.RSA_PSS_SHA256` | RSASSA-PSS (Digest: SHA-256, MGF: MGF1 with SHA-256, Salt length: 32 bytes) | [RFC 8017 §8.1](https://tools.ietf.org/html/rfc8017#section-8.1) |
+
+[OAuth.getAuthorizationHeader](#creating-the-oauth-authorization-header ) accepts an optional `signatureMethod` parameter. When omitted, `SignatureMethod.RSA_SHA256` is used by default.
 
 ### References <a name="references"></a>
 * [OAuth 1.0a specification](https://tools.ietf.org/html/rfc5849)
@@ -83,7 +95,13 @@ const method = "POST";
 const payload = "Hello world!";
 
 const oauth = require('mastercard-oauth1-signer');
-const authHeader = oauth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey);
+const authHeader = oauth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey); // uses RSA-SHA256 as the default signature method
+```
+
+Alternatively, you can specify the signature method:
+
+```javascript
+const authHeader = oauth.getAuthorizationHeader(uri, method, payload, consumerKey, signingKey, oauth.SignatureMethod.RSA_PSS_SHA256);
 ```
 
 ### Integrating with OpenAPI Generator API Client Libraries <a name="integrating-with-openapi-generator-api-client-libraries"></a>
@@ -118,7 +136,9 @@ client.basePath = "https://sandbox.api.mastercard.com";
 client.applyAuthToRequest = function(request) {
     const _end = request._end;
     request._end = function() {
-        const authHeader = oauth.getAuthorizationHeader(request.url, request.method, request._data, consumerKey, signingKey);
+        const authHeader = oauth.getAuthorizationHeader(request.url, request.method, request._data, consumerKey, signingKey); // uses RSA-SHA256 as the default signature method
+        // You can also specify the signature method:
+        // const authHeader = oauth.getAuthorizationHeader(request.url, request.method, request._data, consumerKey, signingKey, oauth.SignatureMethod.RSA_PSS_SHA256);
         request.req.setHeader('Authorization', authHeader);
         _end.call(request);
     }
