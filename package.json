@@ -1,8 +1,9 @@
 {
   "name": "mastercard-oauth1-signer",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "Zero dependency library for generating a Mastercard API compliant OAuth signature.",
   "main": "src/OAuth.js",
+  "types": "types/index.d.ts",
   "files": [
     "src",
     "LICENSE",
@@ -22,7 +23,8 @@
     "eslint": "^7.7.0",
     "mocha": "^11.1.0",
     "mocha-sonar-generic-test-coverage": "0.0.6",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "sinon": "^21.0.3"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

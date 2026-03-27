@@ -4,6 +4,13 @@ const url = require("url");
 const EMPTY_STRING = "";
 const SHA_BITS = "256";
 
+
+const SignatureMethod = {
+	RSA_SHA256: "RSA-SHA256",
+	RSA_PSS_SHA256: "RSA-PSS-SHA256"
+}
+const DEFAULT_SIGNATURE_METHOD = SignatureMethod.RSA_SHA256
+
 class OAuth {
 	/**
 	 * Creates a Mastercard API compliant OAuth Authorization header
@@ -16,9 +23,9 @@ class OAuth {
 	 * @return {String} Valid OAuth1.0a signature with a body hash when payload is present
 	 */
 
-	static getAuthorizationHeader(uri, method, payload, consumerKey, signingKey) {
+	static getAuthorizationHeader(uri, method, payload, consumerKey, signingKey, signatureMethod = DEFAULT_SIGNATURE_METHOD) {
 		const queryParams = this.extractQueryParams(uri);
-		const oauthParams = this.getOAuthParams(consumerKey, payload);
+		const oauthParams = this.getOAuthParams(consumerKey, payload, signatureMethod);
 
 		// Combine query and oauth_ parameters into lexicographically sorted string
 		const paramString = this.toOAuthParamString(queryParams, oauthParams);
@@ -30,7 +37,7 @@ class OAuth {
 		const sbs = this.getSignatureBaseString(method, baseUri, paramString);
 
 		// Signature
-		const signature = this.signSignatureBaseString(sbs, signingKey);
+		const signature = this.signSignatureBaseString(sbs, signingKey, signatureMethod);
 		const encodedSignature = encodeURIComponent(signature);
 		oauthParams.set("oauth_signature", encodedSignature);
 
@@ -39,6 +46,8 @@ class OAuth {
 	}
 }
 module.exports = OAuth;
+
+OAuth.SignatureMethod = SignatureMethod;
 
 /**
  * Parse query parameters out of the URL.
@@ -159,13 +168,15 @@ OAuth.getNonce = function getNonce() {
  * @param {Any} payload Payload (nullable)
  * @return {Map}
  */
-OAuth.getOAuthParams = function getOAuthParams(consumerKey, payload) {
+OAuth.getOAuthParams = function getOAuthParams(consumerKey, payload, signatureMethod = DEFAULT_SIGNATURE_METHOD) {
+	validateSignatureMethod(signatureMethod);
+
 	const oauthParams = new Map();
 	if (!payload) payload = EMPTY_STRING;
 	oauthParams.set("oauth_body_hash", OAuth.getBodyHash(payload));
 	oauthParams.set("oauth_consumer_key", consumerKey);
 	oauthParams.set("oauth_nonce", OAuth.getNonce());
-	oauthParams.set("oauth_signature_method", `RSA-SHA${SHA_BITS}`);
+	oauthParams.set("oauth_signature_method", signatureMethod === SignatureMethod.RSA_PSS_SHA256 ? 'RSA-PSS' : 'RSA-SHA256' );
 	oauthParams.set("oauth_timestamp", OAuth.getTimestamp());
 	oauthParams.set("oauth_version", "1.0");
 	return oauthParams;
@@ -216,18 +227,27 @@ OAuth.getTimestamp = function getTimestamp() {
  * @param {String} signingKey Private key of the RSA key pair that was established with the service provider
  * @return {String} RSA signature matching the contents of signature base string
  */
-OAuth.signSignatureBaseString = function signSignatureBaseString(sbs, signingKey) {
+OAuth.signSignatureBaseString = function signSignatureBaseString(sbs, signingKey, signatureMethod = DEFAULT_SIGNATURE_METHOD) {
+
+	validateSignatureMethod(signatureMethod);
+
 	let signer = crypto.createSign("RSA-SHA256");
 	signer = signer.update(Buffer.from(sbs));
 
-	let signature;
 	try {
-		signature = signer.sign(signingKey, "base64");
+		if(signatureMethod === SignatureMethod.RSA_PSS_SHA256) {
+			return signer.sign({
+				key: signingKey,
+				padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+				saltLength: crypto.constants.RSA_PSS_SALTLEN_DIGEST
+			}, "base64");
+		} else {
+			return signer.sign(signingKey, "base64");
+		}
+
 	} catch (e) {
 		throw new Error("Unable to sign the signature base string.");
 	}
-
-	return signature;
 };
 
 /**
@@ -279,3 +299,11 @@ OAuth.toOAuthParamString = function toOAuthParamString(queryParamsMap, oauthPara
 
 	return allParams;
 };
+
+function validateSignatureMethod(method) {
+	if (!method 
+        || typeof method !== "string"
+        || !Object.values(SignatureMethod).includes(method)) {
+		throw new Error("Invalid/Unsupported signature method. Only these values are supported: " + Object.values(SignatureMethod));
+	}
+}
