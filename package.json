@@ -20,8 +20,8 @@
   "author": "Mastercard",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.7.0",
-    "mocha": "^11.1.0",
+    "eslint": "^10.1.0",
+    "mocha": "^11.7.5",
     "mocha-sonar-generic-test-coverage": "0.0.6",
     "nyc": "^15.1.0",
     "sinon": "^21.0.3"

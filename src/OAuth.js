@@ -8,8 +8,9 @@ const SHA_BITS = "256";
 const SignatureMethod = {
 	RSA_SHA256: "RSA-SHA256",
 	RSA_PSS_SHA256: "RSA-PSS-SHA256"
-}
-const DEFAULT_SIGNATURE_METHOD = SignatureMethod.RSA_SHA256
+};
+
+const DEFAULT_SIGNATURE_METHOD = SignatureMethod.RSA_SHA256;
 
 class OAuth {
 	/**
@@ -124,7 +125,7 @@ OAuth.getBaseUriString = function getBaseUriString(uri) {
 		uriAsUrl.port!==80
 	);
 	if(hasNonStandardPort) {
-		baseUri = `${baseUri}:${uriAsUrl.port}`
+		baseUri = `${baseUri}:${uriAsUrl.port}`;
 	}
 	baseUri = `${baseUri}${pathname}`;
 
@@ -195,7 +196,7 @@ OAuth.getSignatureBaseString = function getSignatureBaseString(httpMethod, baseU
 
 	//encodeURIComponent doesnt encode * so doing it manually
 	let encodeParamsString = encodeURIComponent(paramString);
-	encodeParamsString = encodeParamsString.replace('*', '%2A')
+	encodeParamsString = encodeParamsString.replace('*', '%2A');
 
 	const sbs =
 		// Uppercase HTTP method
