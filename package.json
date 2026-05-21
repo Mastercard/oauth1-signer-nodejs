@@ -25,7 +25,8 @@
     "mocha": "^11.7.5",
     "mocha-sonar-generic-test-coverage": "0.0.6",
     "nyc": "^15.1.0",
-    "sinon": "^21.0.3"
+    "sinon": "^21.0.3",
+	"minipass-pipeline":"1.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
