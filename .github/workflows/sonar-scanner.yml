@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 0
       - name: Check for external PR
@@ -22,10 +22,10 @@ jobs:
           github.event.pull_request.head.repo.full_name == github.repository ||
           github.event_name != 'pull_request_target') }}
         run: echo "Unsecure PR, must be labelled with the 'safe' label, then run the workflow again" && exit 1
-      - name: Use Node.js 16
-        uses: actions/setup-node@v1
+      - name: Use Node.js 24
+        uses: actions/setup-node@v6.4.0
         with:
-          node-version: 16
+          node-version: 24
       - name: Build with npm
         run: |
           npm ci
@@ -33,7 +33,7 @@ jobs:
           npm test
           npm run coverage
       - name: SonarCloud
-        uses: SonarSource/sonarqube-scan-action@v7
+        uses: SonarSource/sonarqube-scan-action@v8.2.0
         env:
           SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
         with:

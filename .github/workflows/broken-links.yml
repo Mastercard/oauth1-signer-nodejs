@@ -9,10 +9,10 @@ jobs:
   linkChecker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7.0.0
       - name: Link Checker
         id: lc
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@v2.8.0
         with:
           args: --insecure --verbose --no-progress './**/*.md' './**/*.html'  --accept 200,204,206 --exclude '^http://npmjs\.org' --exclude '^http://www\.npmjs\.com'
       - name: Fail?
