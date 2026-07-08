@@ -11,7 +11,7 @@
     "README.md"
   ],
   "scripts": {
-    "test": "mocha && mocha --reporter mocha-sonar-generic-test-coverage > test-results.xml",
+    "test": "mocha && mocha --reporter mocha-sonarqube-reporter --reporter-options output=test-results.xml",
     "coverage": "nyc mocha && nyc report --reporter=text-lcov > .nyc_output/coverage.lcov"
   },
   "repository": {
@@ -21,11 +21,14 @@
   "author": "Mastercard",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^10.1.0",
-    "mocha": "^11.7.5",
-    "mocha-sonar-generic-test-coverage": "0.0.6",
-    "nyc": "^15.1.0",
-    "sinon": "^21.0.3"
+    "eslint": "^10.6.0",
+    "mocha": "^11.7.6",
+    "mocha-sonarqube-reporter": "^1.0.2",
+    "nyc": "^18.0.0",
+    "sinon": "^22.0.0"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.7"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
